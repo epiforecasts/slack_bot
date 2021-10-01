@@ -1,0 +1,32 @@
+name: "Lab meeting announcement"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * 1"
+
+jobs:
+  announce-meeting:
+    runs-on: ubuntu-20.04
+    env:
+      RSPM: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: r-lib/actions/setup-r@v1
+
+      - uses: r-lib/actions/setup-r-dependencies@v1
+        with:
+          extra-packages: pkgload
+
+      - name: Announce meeting
+        env:
+          EPIFORECASTS_WEBHOOK: ${{ secrets.EPIFORECASTS_WEBHOOK }}
+        run: |
+          pkgload::pkgload(".")
+          msg <- create_announcement_msg("Hugo")
+          slackr::slackr_bot(
+            msg,
+            Sys.getenv("EPIFORECASTS_WEBHOOK")
+          )
+        shell: Rscript {0}
