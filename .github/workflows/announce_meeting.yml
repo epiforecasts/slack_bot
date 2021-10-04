@@ -23,7 +23,7 @@ jobs:
         env:
           EPIFORECASTS_WEBHOOK: ${{ secrets.EPIFORECASTS_WEBHOOK }}
         run: |
-          pkgload::pkgload(".")
+          pkgload::load_all(".")
           msg <- create_announcement_msg("Hugo")
           slackr::slackr_bot(
             msg,
