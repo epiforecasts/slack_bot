@@ -17,7 +17,9 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
-          extra-packages: pkgload
+          extra-packages: |
+            pkgload
+            xml2
 
       - name: Announce meeting
         env:
