@@ -21,12 +21,11 @@ jobs:
 
       - name: Announce meeting
         env:
-          EPIFORECASTS_WEBHOOK: ${{ secrets.EPIFORECASTS_WEBHOOK }}
+          SLACK_INCOMING_WEBHOOK_URL: ${{ secrets.EPIFORECASTS_WEBHOOK }}
         run: |
           pkgload::load_all(".")
           msg <- create_announcement_msg("Hugo")
           slackr::slackr_bot(
-            msg,
-            Sys.getenv("EPIFORECASTS_WEBHOOK")
+            msg
           )
         shell: Rscript {0}
