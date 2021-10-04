@@ -19,7 +19,7 @@ jobs:
         with:
           extra-packages: |
             pkgload
-            xml2
+            httr
 
       - name: Announce meeting
         env:
@@ -27,7 +27,9 @@ jobs:
         run: |
           pkgload::load_all(".")
           msg <- create_announcement_msg("Hugo")
-          slackr::slackr_bot(
-            msg
+          httr::POST(
+            url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
+            body = msg,
+            encode = "json"
           )
         shell: Rscript {0}
