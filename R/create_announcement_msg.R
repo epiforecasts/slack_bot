@@ -1,6 +1,7 @@
 #' Create announcement message for lab meeting
 #'
 #' @param assignee Who is presenting this week?
+#' @param topic What is the topic of this week's presentation?
 #'
 #' @import praise praise
 #' @import glue glue

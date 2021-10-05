@@ -8,6 +8,8 @@ create_announcement_msg(assignee = NULL, topic = NULL)
 }
 \arguments{
 \item{assignee}{Who is presenting this week?}
+
+\item{topic}{What is the topic of this week's presentation?}
 }
 \description{
 Create announcement message for lab meeting
