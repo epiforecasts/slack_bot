@@ -8,16 +8,29 @@
 #' @export
 #'
 #' @examples
+#' create_announcement_msg()
 #' create_announcement_msg("Seb")
+#' create_announcement_msg("Seb", "the number pi")
 #'
-create_announcement_msg <- function(assignee) {
+create_announcement_msg <- function(assignee = NULL, topic = NULL) {
   greeting <- "Hello ${adjective} Epiforecasts members"
 
   question <- "What are your plans for this ${adjective} week"
 
+  if (is.null(assignee)) {
+    return(praise(glue("{greeting}! {question}?")))
+  }
+
   lab_meeting_day <- "Thursday"
+
+  if (is.null(topic)) {
+    prez <- "a presentation"
+  } else {
+    prez <- glue("a presentation about '{topic}'")
+  }
+
   announcement <- glue(praise(
-    "@{assignee} is ${creating} a presentation for our meeting on {lab_meeting_day}"
+    "@{assignee} is ${creating} {prez} for our meeting on {lab_meeting_day}"
   ))
 
   conclusion <- "This is going to be ${adjective}!"

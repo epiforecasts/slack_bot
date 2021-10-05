@@ -4,7 +4,7 @@
 \alias{create_announcement_msg}
 \title{Create announcement message for lab meeting}
 \usage{
-create_announcement_msg(assignee)
+create_announcement_msg(assignee = NULL, topic = NULL)
 }
 \arguments{
 \item{assignee}{Who is presenting this week?}
@@ -13,6 +13,8 @@ create_announcement_msg(assignee)
 Create announcement message for lab meeting
 }
 \examples{
+create_announcement_msg()
 create_announcement_msg("Seb")
+create_announcement_msg("Seb", "the number pi")
 
 }
