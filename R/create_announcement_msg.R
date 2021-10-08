@@ -18,13 +18,13 @@ create_announcement_msg <- function(assignee = NULL, topic = NULL) {
 
   question <- "What are your plans for this ${adjective} week"
 
-  if (is.null(assignee)) {
+  if (is.null(assignee) || is.na(assignee)) {
     return(praise(glue("{greeting}! {question}?")))
   }
 
   lab_meeting_day <- "Thursday"
 
-  if (is.null(topic)) {
+  if (is.null(topic) || is.na(topic)) {
     prez <- "a presentation"
   } else {
     prez <- glue("a presentation about '{topic}'")
