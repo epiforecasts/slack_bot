@@ -7,6 +7,10 @@
 #'
 #' @export
 #'
+#' @examples
+#' googlesheets4::gs4_deauth()
+#' get_meeting_info(Sys.getenv("GSHEET_ID"))
+#'
 get_meeting_info <- function(gsheet_id) {
 
   meeting_planning <- read_sheet(gsheet_id) %>%

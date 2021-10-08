@@ -12,3 +12,8 @@ get_meeting_info(gsheet_id)
 \description{
 Get info for this week's lab meeting
 }
+\examples{
+googlesheets4::gs4_deauth()
+get_meeting_info(Sys.getenv("GSHEET_ID"))
+
+}
