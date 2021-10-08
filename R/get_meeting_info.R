@@ -17,13 +17,13 @@
 get_meeting_info <- function(gsheet_id) {
 
   meeting_planning <- read_sheet(gsheet_id) %>%
-    mutate(week = lubridate::week(Date))
+    mutate(week = lubridate::week(.data$Date))
 
   this_week <- lubridate::week(lubridate::today())
 
   week_plan <- meeting_planning %>%
-    dplyr::filter(week == this_week) %>%
-    select(Speaker, Topic) %>%
+    dplyr::filter(.data$week == this_week) %>%
+    select(.data$Speaker, .data$Topic) %>%
     unlist()
 
   return(week_plan)
