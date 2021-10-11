@@ -33,9 +33,10 @@ jobs:
             this_week_plan[["Speaker"]],
             this_week_plan[["Topic"]]
           )
-          httr::POST(
+          req <- httr::POST(
             url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
             body = msg,
             encode = "json"
           )
+          httr::stop_for_status(req)
         shell: Rscript {0}
