@@ -35,7 +35,7 @@ jobs:
           )
           req <- httr::POST(
             url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
-            body = msg,
+            body = list("text" = msg),
             encode = "json"
           )
           httr::stop_for_status(req)
