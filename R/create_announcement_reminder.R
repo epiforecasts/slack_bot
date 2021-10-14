@@ -26,7 +26,7 @@ create_announcement_reminder <- function(assignee = NULL, topic = NULL, zoom_lin
   }
 
   announcement <- glue(
-    "@{assignee}'s {prez} is happening now!"
+    "<!channel>, @{assignee}'s {prez} is happening now!"
   )
 
   if (is.null(zoom_link)) {
