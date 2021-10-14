@@ -33,7 +33,7 @@ create_announcement_reminder <- function(assignee = NULL, topic = NULL, zoom_lin
     return(announcement)
   }
 
-  location <- "Join us on {zoom_id}!"
+  location <- "Join us on {zoom_link}!"
 
   return(paste(announcement, location, sep = "\n"))
 
