@@ -3,8 +3,7 @@
 #' @param gsheet_id The ID of the google sheet
 #'
 #' @importFrom googlesheets4 read_sheet
-#' @importFrom dplyr mutate %>% select
-#' @importFrom rlang .data
+#' @importFrom dplyr mutate %>% select .data
 #'
 #' @export
 #'
