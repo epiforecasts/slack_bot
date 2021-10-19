@@ -4,12 +4,14 @@
 \alias{create_announcement_msg}
 \title{Create announcement message for lab meeting}
 \usage{
-create_announcement_msg(assignee = NULL, topic = NULL)
+create_announcement_msg(assignee = NULL, topic = NULL, random = NULL)
 }
 \arguments{
 \item{assignee}{Who is presenting this week?}
 
 \item{topic}{What is the topic of this week's presentation?}
+
+\item{random}{Who is charge of talking about a random interesting thing?}
 }
 \description{
 Create announcement message for lab meeting
@@ -18,5 +20,6 @@ Create announcement message for lab meeting
 create_announcement_msg()
 create_announcement_msg("Seb")
 create_announcement_msg("Seb", "the number pi")
+create_announcement_msg("Seb", "the number pi", "someone")
 
 }
