@@ -33,6 +33,8 @@ jobs:
           msg <- create_announcement_reminder(
             this_week_plan[["Speaker"]],
             this_week_plan[["Topic"]],
+            this_week_plan[["Random"]],
+            this_week_plan[["Chair"]],
             Sys.getenv("ZOOM_ROOM")
           )
           req <- httr::POST(

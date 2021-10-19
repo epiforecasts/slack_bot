@@ -30,8 +30,9 @@ jobs:
           googlesheets4::gs4_deauth()
           this_week_plan <- get_meeting_info(Sys.getenv("GSHEET_ID"))
           msg <- create_announcement_msg(
-            this_week_plan[["Speaker"]],
-            this_week_plan[["Topic"]]
+            assignee = this_week_plan[["Speaker"]],
+            topic = this_week_plan[["Topic"]],
+            random = this_week_plan[["Random"]]
           )
           req <- httr::POST(
             url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
