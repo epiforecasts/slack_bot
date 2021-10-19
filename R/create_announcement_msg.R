@@ -4,8 +4,8 @@
 #' @param topic What is the topic of this week's presentation?
 #' @param random Who is charge of talking about a random interesting thing?
 #'
-#' @import praise praise
-#' @import glue glue
+#' @importFrom praise praise
+#' @importFrom glue glue
 #'
 #' @export
 #'

@@ -4,8 +4,8 @@
 #' @param chair Who will chair this meeting?
 #' @param zoom_link The link to the zoom room where the meeting is taking place
 #'
-#' @import praise praise
-#' @import glue glue
+#' @importFrom praise praise
+#' @importFrom glue glue
 #'
 #' @export
 #'

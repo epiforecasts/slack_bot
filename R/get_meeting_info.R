@@ -4,6 +4,7 @@
 #'
 #' @importFrom googlesheets4 read_sheet
 #' @importFrom dplyr mutate %>% select
+#' @importFrom rlang .data
 #'
 #' @export
 #'
