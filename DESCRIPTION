@@ -18,5 +18,7 @@ Imports:
   dplyr,
   glue,
   googlesheets4,
+  httr2,
   lubridate,
-  praise
+  praise,
+  purrr
