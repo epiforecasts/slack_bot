@@ -4,12 +4,12 @@
 \alias{get_user_id}
 \title{Get slack user ID from their name}
 \usage{
-get_user_id(name, token)
+get_user_id(name, oauth_token = Sys.getenv("SLACKBOT_OAUTH"))
 }
 \arguments{
 \item{name}{A character string with the name ("Firstname Lastname")}
 
-\item{token}{The OAuth token to access
+\item{oauth_token}{The OAuth token to access
 \href{https://api.slack.com/methods/users.list}{slack users.list API endpoint}}
 }
 \description{

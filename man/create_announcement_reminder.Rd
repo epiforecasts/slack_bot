@@ -4,22 +4,10 @@
 \alias{create_announcement_reminder}
 \title{Create announcement reminder for lab meeting}
 \usage{
-create_announcement_reminder(
-  assignee = NULL,
-  topic = NULL,
-  random = NULL,
-  chair = NULL,
-  zoom_link = NULL
-)
+create_announcement_reminder(..., zoom_link = NULL)
 }
 \arguments{
-\item{assignee}{Who is presenting this week?}
-
-\item{topic}{What is the topic of this week's presentation?}
-
-\item{random}{Who is charge of talking about a random interesting thing?}
-
-\item{chair}{Who will chair this meeting?}
+\item{...}{Arguments passed to \code{\link[=format_meeting_info]{format_meeting_info()}}}
 
 \item{zoom_link}{The link to the zoom room where the meeting is taking place}
 }
@@ -28,10 +16,10 @@ Create announcement reminder for lab meeting
 }
 \examples{
 create_announcement_reminder()
+create_announcement_reminder("Sebastian Funk")
 create_announcement_reminder("Seb")
-create_announcement_reminder("Seb", "the number pi")
-create_announcement_reminder("Seb", "the number pi", "someone")
-create_announcement_reminder(random = "Seb")
-create_announcement_reminder(chair = "Seb", zoom_link = "https://example.com")
+create_announcement_reminder("Sebastian Funk", "someone")
+create_announcement_reminder(random = "Sebastian Funk")
+create_announcement_reminder(chair = "Sebastian Funk", zoom_link = "https://example.com")
 
 }

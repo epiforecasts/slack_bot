@@ -2,6 +2,7 @@
 
 export(create_announcement_msg)
 export(create_announcement_reminder)
+export(format_meeting_info)
 export(get_meeting_info)
 export(get_user_id)
 importFrom(dplyr,"%>%")

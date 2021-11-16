@@ -4,22 +4,18 @@
 \alias{create_announcement_msg}
 \title{Create announcement message for lab meeting}
 \usage{
-create_announcement_msg(assignee = NULL, topic = NULL, random = NULL)
+create_announcement_msg(...)
 }
 \arguments{
-\item{assignee}{Who is presenting this week?}
-
-\item{topic}{What is the topic of this week's presentation?}
-
-\item{random}{Who is charge of talking about a random interesting thing?}
+\item{...}{Arguments passed to \code{\link[=format_meeting_info]{format_meeting_info()}}}
 }
 \description{
 Create announcement message for lab meeting
 }
 \examples{
 create_announcement_msg()
+create_announcement_msg("Sebastian Funk")
 create_announcement_msg("Seb")
-create_announcement_msg("Seb", "the number pi")
-create_announcement_msg("Seb", "the number pi", "someone")
+create_announcement_msg("Sebastian Funk", "someone")
 
 }

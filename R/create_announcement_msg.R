@@ -1,8 +1,6 @@
 #' Create announcement message for lab meeting
 #'
-#' @param assignee Who is presenting this week?
-#' @param topic What is the topic of this week's presentation?
-#' @param random Who is charge of talking about a random interesting thing?
+#' @param ... Arguments passed to [format_meeting_info()]
 #'
 #' @importFrom praise praise
 #' @importFrom glue glue
@@ -11,38 +9,28 @@
 #'
 #' @examples
 #' create_announcement_msg()
+#' create_announcement_msg("Sebastian Funk")
 #' create_announcement_msg("Seb")
-#' create_announcement_msg("Seb", "the number pi")
-#' create_announcement_msg("Seb", "the number pi", "someone")
+#' create_announcement_msg("Sebastian Funk", "someone")
 #'
 create_announcement_msg <- function(
-  assignee = NULL, topic = NULL, random = NULL
+  ...
 ) {
   greeting <- "Hello ${adjective} Epiforecasts members"
 
   question <- "What are your plans for this ${adjective} week"
 
-  if (is.null(assignee) || is.na(assignee)) {
+  if (...length() == 0) {
     return(praise(glue("{greeting}! {question}?")))
   }
 
   lab_meeting_day <- "Thursday"
 
-  if (is.null(topic) || is.na(topic)) {
-    prez <- "a presentation"
-  } else {
-    prez <- glue("a presentation about '{topic}'")
-  }
+  announcement <- glue(
+    "For our meeting on {lab_meeting_day}:"
+  )
 
-  announcement <- glue(praise(
-    "@{assignee} is ${creating} {prez} for our meeting on {lab_meeting_day}"
-  ))
-
-  if (!is.null(random)) {
-    announcement <- glue(
-    "{announcement}, and @{random} will tell us about something interesting"
-    )
-  }
+  announcement <- paste0(announcement, format_meeting_info(...))
 
   conclusion <- "This is going to be ${adjective}!"
 

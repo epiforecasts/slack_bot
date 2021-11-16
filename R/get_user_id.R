@@ -1,7 +1,7 @@
 #' Get slack user ID from their name
 #'
 #' @param name A character string with the name ("Firstname Lastname")
-#' @param token The OAuth token to access
+#' @param oauth_token The OAuth token to access
 #' [slack users.list API endpoint](https://api.slack.com/methods/users.list)
 #'
 #' @importFrom httr2 request req_auth_bearer_token req_perform resp_body_json
@@ -10,10 +10,10 @@
 #'
 #' @export
 #'
-get_user_id <- function(name, token) {
+get_user_id <- function(name, oauth_token = Sys.getenv("SLACKBOT_OAUTH")) {
 
   all_users <- request("https://slack.com/api/users.list") %>%
-    req_auth_bearer_token(token) %>%
+    req_auth_bearer_token(oauth_token) %>%
     req_perform() %>%
     resp_body_json()
 
