@@ -7,7 +7,7 @@
 #' @importFrom httr2 request req_auth_bearer_token req_perform resp_body_json
 #' @importFrom dplyr %>% bind_rows
 #' @importFrom purrr pluck map
-#' @importFrom utils setNames
+#' @importFrom stats setNames
 #'
 #' @export
 #'
