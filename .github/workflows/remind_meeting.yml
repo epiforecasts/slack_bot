@@ -31,11 +31,10 @@ jobs:
           googlesheets4::gs4_deauth()
           this_week_plan <- get_meeting_info(Sys.getenv("GSHEET_ID"))
           msg <- create_announcement_reminder(
-            this_week_plan[["Speaker"]],
-            this_week_plan[["Topic"]],
-            this_week_plan[["Random"]],
-            this_week_plan[["Chair"]],
-            Sys.getenv("ZOOM_ROOM")
+            assignee = this_week_plan[["Speaker"]],
+            random = this_week_plan[["Random"]],
+            chair = this_week_plan[["Chair"]],
+            zoom_link = Sys.getenv("ZOOM_ROOM")
           )
           req <- httr::POST(
             url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
