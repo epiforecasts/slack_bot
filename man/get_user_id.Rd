@@ -4,13 +4,12 @@
 \alias{get_user_id}
 \title{Get slack user ID from their name}
 \usage{
-get_user_id(name, oauth_token = Sys.getenv("SLACKBOT_OAUTH"))
+get_user_id(name, gsheet_id)
 }
 \arguments{
 \item{name}{A character string with the name ("Firstname Lastname")}
 
-\item{oauth_token}{The OAuth token to access
-\href{https://api.slack.com/methods/users.list}{slack users.list API endpoint}}
+\item{gsheet_id}{The ID of the google sheet}
 }
 \description{
 Get slack user ID from their name

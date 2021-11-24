@@ -17,7 +17,7 @@
 #'
 format_meeting_info <- function(
   assignee = NULL, random = NULL, chair = NULL,
-  oauth_token = Sys.getenv("SLACKBOT_OAUTH")
+  gsheet_id = Sys.getenv("GSHEET_ID")
 ) {
 
   announcement <- ""
@@ -26,7 +26,7 @@ format_meeting_info <- function(
     announcement <- tryCatch(
       glue(
         "{announcement}\n- presenting: @<{assignee_id}>",
-        assignee_id = get_user_id(assignee, oauth_token)),
+        assignee_id = get_user_id(assignee, gsheet_id)),
       error = function(e) {
         glue("{announcement}\n- presenting: {assignee}")
       }
@@ -36,7 +36,7 @@ format_meeting_info <- function(
     announcement <- tryCatch(
       glue(
         "{announcement}\n- talking about something interesting: @<{random_id}>",
-        random_id = get_user_id(random, oauth_token)
+        random_id = get_user_id(random, gsheet_id)
       ),
       error = function(e) {
         glue("{announcement}\n- talking about something interesting: {random}")
@@ -47,7 +47,7 @@ format_meeting_info <- function(
     announcement <- tryCatch(
       glue(
         "{announcement}\n- chairing: @<{chair_id}>",
-        chair_id = get_user_id(chair, oauth_token)
+        chair_id = get_user_id(chair, gsheet_id)
       ),
       error = function(e) {
         glue("{announcement}\n- chairing: {chair}")

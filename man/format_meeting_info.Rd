@@ -17,9 +17,6 @@ format_meeting_info(
 \item{random}{Who is charge of talking about a random interesting thing?}
 
 \item{chair}{Who will chair this meeting?}
-
-\item{oauth_token}{The OAuth token to access
-\href{https://api.slack.com/methods/users.list}{slack users.list API endpoint}}
 }
 \description{
 Format meeting info as a simple bullet list

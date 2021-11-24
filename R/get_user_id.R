@@ -1,37 +1,30 @@
 #' Get slack user ID from their name
 #'
 #' @param name A character string with the name ("Firstname Lastname")
-#' @param oauth_token The OAuth token to access
-#' [slack users.list API endpoint](https://api.slack.com/methods/users.list)
+#' @inheritParams get_meeting_info
 #'
-#' @importFrom httr2 request req_auth_bearer_token req_perform resp_body_json
-#' @importFrom dplyr %>% bind_rows
-#' @importFrom purrr pluck map
-#' @importFrom stats setNames
+#' @importFrom googlesheets4 read_sheet
+#' @importFrom dplyr filter %>% pull
 #'
 #' @export
 #'
-get_user_id <- function(name, oauth_token = Sys.getenv("SLACKBOT_OAUTH")) {
+#' @examples
+#' googlesheets4::gs4_deauth()
+#' gsheet_id <- Sys.getenv("GSHEET_ID")
+#' if (gsheet_id != "") {
+#'   get_user_id("Hugo Gruson", gsheet_id)
+#' }
+#'
+get_user_id <- function(name, gsheet_id) {
 
-  all_users <- request("https://slack.com/api/users.list") %>%
-    req_auth_bearer_token(oauth_token) %>%
-    req_perform() %>%
-    resp_body_json()
+  id <- read_sheet(gsheet_id, sheet = "Slack-IDs") %>%
+    filter(name == Username) %>%
+    pull(`User ID`)
 
-  all_ids <- all_users %>%
-    pluck("members") %>%
-    map(~ c("id" = .x[["id"]], "email" = .x$profile$email)) %>%
-    bind_rows()
+  if (length(id) == 0) {
+    stop("We don't know the slack ID of this user", call. = FALSE)
+  }
 
-  target_email <- name %>%
-    strsplit(" ") %>%
-    pluck(1) %>%
-    setNames(c("firstname", "lastname")) %>%
-    glue::glue_data("{firstname}.{lastname}@lshtm.ac.uk") %>%
-    tolower()
-
-  target_id <- all_ids$id[which(tolower(all_ids$email) == target_email)]
-
-  return(target_id)
+  return(id)
 
 }

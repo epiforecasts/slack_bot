@@ -34,7 +34,7 @@ create_announcement_msg <- function(
 
   conclusion <- "This is going to be ${adjective}!"
 
-  praise(glue("{greeting}! {question}?\n {announcement}. {conclusion}"))
+  praise(glue("{greeting}! {question}?\n {announcement}.\n {conclusion}"))
 
 }
 
