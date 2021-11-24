@@ -14,3 +14,11 @@ get_user_id(name, gsheet_id)
 \description{
 Get slack user ID from their name
 }
+\examples{
+googlesheets4::gs4_deauth()
+gsheet_id <- Sys.getenv("GSHEET_ID")
+if (gsheet_id != "") {
+  get_user_id("Hugo Gruson", gsheet_id)
+}
+
+}

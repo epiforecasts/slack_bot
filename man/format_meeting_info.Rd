@@ -8,7 +8,7 @@ format_meeting_info(
   assignee = NULL,
   random = NULL,
   chair = NULL,
-  oauth_token = Sys.getenv("SLACKBOT_OAUTH")
+  gsheet_id = Sys.getenv("GSHEET_ID")
 )
 }
 \arguments{
@@ -17,6 +17,8 @@ format_meeting_info(
 \item{random}{Who is charge of talking about a random interesting thing?}
 
 \item{chair}{Who will chair this meeting?}
+
+\item{gsheet_id}{The ID of the google sheet}
 }
 \description{
 Format meeting info as a simple bullet list
