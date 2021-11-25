@@ -25,7 +25,7 @@ format_meeting_info <- function(
   if (!is.null(assignee) && !is.na(assignee)) {
     announcement <- tryCatch(
       glue(
-        "{announcement}\n- presenting: @<{assignee_id}>",
+        "{announcement}\n- presenting: <@{assignee_id}>",
         assignee_id = get_user_id(assignee, gsheet_id)),
       error = function(e) {
         glue("{announcement}\n- presenting: {assignee}")
@@ -35,7 +35,7 @@ format_meeting_info <- function(
   if (!is.null(random) && !is.na(random)) {
     announcement <- tryCatch(
       glue(
-        "{announcement}\n- talking about something interesting: @<{random_id}>",
+        "{announcement}\n- talking about something interesting: <@{random_id}>",
         random_id = get_user_id(random, gsheet_id)
       ),
       error = function(e) {
@@ -46,7 +46,7 @@ format_meeting_info <- function(
   if (!is.null(chair) && !is.na(chair)) {
     announcement <- tryCatch(
       glue(
-        "{announcement}\n- chairing: @<{chair_id}>",
+        "{announcement}\n- chairing: <@{chair_id}>",
         chair_id = get_user_id(chair, gsheet_id)
       ),
       error = function(e) {
