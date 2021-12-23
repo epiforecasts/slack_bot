@@ -30,16 +30,20 @@ jobs:
           pkgload::load_all(".")
           googlesheets4::gs4_deauth()
           this_week_plan <- get_meeting_info(Sys.getenv("GSHEET_ID"))
-          msg <- create_announcement_reminder(
-            assignee = this_week_plan[["Speaker"]],
-            random = this_week_plan[["Random"]],
-            chair = this_week_plan[["Chair"]],
-            zoom_link = Sys.getenv("ZOOM_ROOM")
-          )
-          req <- httr::POST(
-            url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
-            body = list(text = msg, type = "mrkdwn"),
-            encode = "json"
-          )
-          httr::stop_for_status(req)
+          if (startsWith(this_week_plan[["Topic"]], "[OFF]")) {
+            message("No lab meeting this week")
+          } else {
+            msg <- create_announcement_reminder(
+              assignee = this_week_plan[["Speaker"]],
+              random = this_week_plan[["Random"]],
+              chair = this_week_plan[["Chair"]],
+              zoom_link = Sys.getenv("ZOOM_ROOM")
+            )
+            req <- httr::POST(
+              url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
+              body = list(text = msg, type = "mrkdwn"),
+              encode = "json"
+            )
+            httr::stop_for_status(req)
+          }
         shell: Rscript {0}

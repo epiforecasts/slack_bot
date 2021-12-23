@@ -20,7 +20,9 @@ create_announcement_msg <- function(
 
   question <- "What are your plans for this ${adjective} week"
 
-  if (...length() == 0) {
+  meeting_info <- format_meeting_info(...)
+
+  if (...length() == 0 || meeting_info == "") {
     return(praise(glue("{greeting}! {question}?")))
   }
 
@@ -30,11 +32,11 @@ create_announcement_msg <- function(
     "For our meeting on {lab_meeting_day}:"
   )
 
-  announcement <- paste0(announcement, format_meeting_info(...))
+  announcement <- paste0(announcement, meeting_info)
 
   conclusion <- "This is going to be ${adjective}!"
 
-  praise(glue("{greeting}! {question}?\n {announcement}.\n {conclusion}"))
+  praise(glue("{greeting}! {question}?\n {announcement}\n {conclusion}"))
 
 }
 
