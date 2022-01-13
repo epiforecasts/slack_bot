@@ -30,7 +30,7 @@ jobs:
           pkgload::load_all(".")
           googlesheets4::gs4_deauth()
           this_week_plan <- get_meeting_info(Sys.getenv("GSHEET_ID"))
-          if (startsWith(this_week_plan[["Topic"]], "[OFF]")) {
+          if (isTRUE(startsWith(this_week_plan[["Topic"]], "[OFF]"))) {
             message("No lab meeting this week")
           } else {
             msg <- create_announcement_reminder(
