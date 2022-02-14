@@ -17,9 +17,9 @@
 get_meeting_info <- function(gsheet_id) {
 
   meeting_planning <- read_sheet(gsheet_id) %>%
-    mutate(week = lubridate::week(.data$Date))
+    mutate(week = format(.data$Date, "%Y-W%W"))
 
-  this_week <- lubridate::week(lubridate::today())
+  this_week <- format(lubridate::today(), "%Y-W%W")
 
   week_plan <- meeting_planning %>%
     dplyr::filter(.data$week == this_week) %>%
