@@ -1,0 +1,39 @@
+name: "Weekly coffee announcement"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * 1"
+
+jobs:
+  announce-coffeee:
+    runs-on: ubuntu-20.04
+    env:
+      RSPM: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: r-lib/actions/setup-r@v1
+
+      - uses: r-lib/actions/setup-r-dependencies@v1
+        with:
+          extra-packages: |
+            pkgload
+            httr
+
+      - name: Announce meeting
+        env:
+          SLACK_INCOMING_WEBHOOK_URL: ${{ secrets.EPIFORECASTS_WEBHOOK }}
+          GSHEET_ID: ${{ secrets.GSHEET_ID }}
+        run: |
+          pkgload::load_all(".")
+          msg <- create_coffee_reminder(
+            zoom_link = Sys.getenv("ZOOM_ROOM")
+          )
+          req <- httr::POST(
+            url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
+            body = list(text = msg, type = "mrkdwn"),
+            encode = "json"
+          )
+          httr::stop_for_status(req)
+        shell: Rscript {0}
