@@ -25,6 +25,7 @@ jobs:
         env:
           SLACK_INCOMING_WEBHOOK_URL: ${{ secrets.EPIFORECASTS_WEBHOOK }}
           GSHEET_ID: ${{ secrets.GSHEET_ID }}
+          ZOOM_ROOM: ${{ secrets.ZOOM_ROOM }}
         run: |
           pkgload::load_all(".")
           msg <- create_coffee_reminder(
