@@ -12,14 +12,14 @@
 create_coffee_reminder <- function(zoom_link = NULL) {
 
   drinks <- c(
-    "🥛",
-    "☕",
-    "🫖",
-    "🍵",
-    "🥤",
-    "🧋",
-    "🧃",
-    "🧉"
+    ":coffee:",
+    ":tea:",
+    ":teapot:",
+    ":mate_drink:",
+    ":glass_of_milk:",
+    ":cup_with_straw:",
+    ":bubble_tea:",
+    ":beverage_box:"
   )
 
   intro <- glue(
