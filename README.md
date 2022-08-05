@@ -12,4 +12,4 @@ Hi there :wave:, I am the slack invocation of the EpiForecast bot. You
 may see my sibling @epiforecasts-bot around here on GitHub as well.
 
 Some of my colleagues have described me as grumpy but I’ve been kept
-awake for the last 28 days. Wouldn’t you be grumpy as well?
+awake for the last 59 days. Wouldn’t you be grumpy as well?
