@@ -2,7 +2,7 @@ name: "Lab meeting reminder"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "50 9 * * 4"
+    - cron: "20 10 * * 4"
     - cron: "50 14 * * 4"
 
 jobs:
