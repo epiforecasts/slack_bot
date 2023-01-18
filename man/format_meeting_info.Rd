@@ -8,6 +8,7 @@ format_meeting_info(
   assignee = NULL,
   random = NULL,
   chair = NULL,
+  notes = NULL,
   gsheet_id = Sys.getenv("GSHEET_ID")
 )
 }

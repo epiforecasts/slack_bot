@@ -4,7 +4,7 @@
 \alias{create_announcement_reminder}
 \title{Create announcement reminder for lab meeting}
 \usage{
-create_announcement_reminder(..., zoom_link = NULL)
+create_announcement_reminder(..., zoom_link = NULL, room = NULL)
 }
 \arguments{
 \item{...}{Arguments passed to \code{\link[=format_meeting_info]{format_meeting_info()}}}
