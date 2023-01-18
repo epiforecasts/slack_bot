@@ -16,7 +16,7 @@
 #' @export
 #'
 format_meeting_info <- function(
-  assignee = NULL, random = NULL, chair = NULL,
+  assignee = NULL, random = NULL, chair = NULL, notes = NULL,
   gsheet_id = Sys.getenv("GSHEET_ID")
 ) {
 
@@ -54,6 +54,18 @@ format_meeting_info <- function(
       }
     )
   }
+  if (!is.null(notes) && !is.na(notes)) {
+    announcement <- tryCatch(
+      glue(
+        "{announcement}\n- Note taking: <@{notes_id}>",
+        notes_id = get_user_id(notes, gsheet_id)
+      ),
+      error = function(e) {
+        glue("{announcement}\n- Note taking: {notes}")
+      }
+    )
+  }
+
 
   return(announcement)
 }
