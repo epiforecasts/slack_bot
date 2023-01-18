@@ -19,6 +19,8 @@ format_meeting_info(
 
 \item{chair}{Who will chair this meeting?}
 
+\item{notes}{Who will take notes?}
+
 \item{gsheet_id}{The ID of the google sheet}
 }
 \description{

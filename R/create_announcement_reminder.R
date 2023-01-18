@@ -2,6 +2,7 @@
 #'
 #' @inheritParams create_announcement_msg
 #' @param zoom_link The link to the zoom room where the meeting is taking place
+#' @param room The room where the meeting is taking place
 #'
 #' @importFrom praise praise
 #' @importFrom glue glue

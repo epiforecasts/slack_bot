@@ -5,6 +5,7 @@
 #' @param assignee Who is presenting this week?
 #' @param random Who is charge of talking about a random interesting thing?
 #' @param chair Who will chair this meeting?
+#' @param notes Who will take notes?
 #' @inheritParams get_user_id
 #'
 #' @examples
