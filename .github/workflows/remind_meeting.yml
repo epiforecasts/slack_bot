@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "20 10 * * 4"
-    - cron: "50 14 * * 4"
 
 jobs:
   remind-meeting:
@@ -14,9 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-r@v2
 
-      - uses: r-lib/actions/setup-r-dependencies@v1
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
             pkgload
@@ -28,30 +27,25 @@ jobs:
           GSHEET_ID: ${{ secrets.GSHEET_ID }}
           ZOOM_ROOM: ${{ secrets.ZOOM_ROOM }}
         run: |
-          t <- Sys.time()
-
-          if ((format(t, "%p") == "pm" && as.integer(format(t, "%U")) %% 2 == 0) ||
-              (format(t, "%p") == "am" && as.integer(format(t, "%U")) %% 2 == 1)) {
-
-            pkgload::load_all(".")
-            googlesheets4::gs4_deauth()
-            this_week_plan <- get_meeting_info(Sys.getenv("GSHEET_ID"))
-            if (isTRUE(startsWith(this_week_plan[["Topic"]], "[OFF]"))) {
-              message("No lab meeting this week")
-            } else {
-              msg <- create_announcement_reminder(
-                assignee = this_week_plan[["Speaker"]],
-                random = this_week_plan[["Random"]],
-                chair = this_week_plan[["Chair"]],
-                zoom_link = Sys.getenv("ZOOM_ROOM")
-              )
-              req <- httr::POST(
-                url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
-                body = list(text = msg, type = "mrkdwn"),
-                encode = "json"
-              )
-              httr::stop_for_status(req)
-            }
-
+          pkgload::load_all(".")
+          googlesheets4::gs4_deauth()
+          this_week_plan <- get_meeting_info(Sys.getenv("GSHEET_ID"))
+          if (isTRUE(startsWith(this_week_plan[["Topic"]], "[OFF]"))) {
+            message("No lab meeting this week")
+          } else {
+            msg <- create_announcement_reminder(
+              assignee = this_week_plan[["Speaker"]],
+              random = this_week_plan[["Random"]],
+              chair = this_week_plan[["Chair"]],
+              notes = this_week_plan[["Notetaking"]],
+              zoom_link = Sys.getenv("ZOOM_ROOM"),
+              room = this_week_plan[["Room"]],
+            )
+            req <- httr::POST(
+              url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
+              body = list(text = msg, type = "mrkdwn"),
+              encode = "json"
+            )
+            httr::stop_for_status(req)
           }
         shell: Rscript {0}

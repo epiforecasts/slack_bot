@@ -2,6 +2,7 @@
 #'
 #' @inheritParams create_announcement_msg
 #' @param zoom_link The link to the zoom room where the meeting is taking place
+#' @param room The room where the meeting is taking place
 #'
 #' @importFrom praise praise
 #' @importFrom glue glue
@@ -18,20 +19,32 @@
 #'
 create_announcement_reminder <- function(
   ...,
-  zoom_link = NULL
+  zoom_link = NULL,
+  room = NULL
 ) {
 
   announcement <- glue(
-    "<!channel>, lab meeting is happening now!"
+    "<!channel>, lab meeting is happening in 5 minutes!"
   )
 
   announcement <- paste0(announcement, format_meeting_info(...))
 
-  if (is.null(zoom_link)) {
+  if (is.null(zoom_link) && is.null(room)) {
     return(announcement)
   }
 
-  location <- glue("Join us on {zoom_link}!")
+  loc_str <- "Join us"
+  if (!is.null(zoom_link)) {
+    loc_str <- paste(loc_str, "on {zoom_link}")
+    if (!is.null(room)) {
+      loc_str <- paste(loc_str, "or")
+    }
+  }
+  if (!is.null(room)) {
+    loc_str <- paste(loc_str, "in room", room)
+  }
+  loc_str <- paste0(loc_str, "!")
+  location <- glue(loc_str)
 
   return(paste(announcement, location, sep = "\n"))
 
