@@ -18,12 +18,10 @@ create_announcement_msg <- function(
 ) {
   greeting <- "Hello ${adjective} Epiforecasts members"
 
-  question <- "What are your plans for this ${adjective} week"
-
   meeting_info <- format_meeting_info(...)
 
   if (...length() == 0 || meeting_info == "") {
-    return(praise(glue("{greeting}! {question}?")))
+    return(NULL)
   }
 
   lab_meeting_day <- "Thursday"
@@ -36,7 +34,7 @@ create_announcement_msg <- function(
 
   conclusion <- "This is going to be ${adjective}!"
 
-  praise(glue("{greeting}! {question}?\n {announcement}\n {conclusion}"))
+  praise(glue("{greeting}!\n {announcement}\n {conclusion}"))
 
 }
 
