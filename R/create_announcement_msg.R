@@ -1,10 +1,13 @@
 #' Create announcement message for lab meeting
 #'
 #' @param ... Arguments passed to [format_meeting_info()]
-#'
+#' @param lab_meeting_day Day of the meeting
+#' @param lab_meeting_time  Time of the meeting
 #' @importFrom praise praise
 #' @importFrom glue glue
 #'
+#' @inheritParams format_meeting_info
+#
 #' @export
 #'
 #' @examples

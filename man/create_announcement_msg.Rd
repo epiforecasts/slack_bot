@@ -13,6 +13,12 @@ create_announcement_msg(
 }
 \arguments{
 \item{...}{Arguments passed to \code{\link[=format_meeting_info]{format_meeting_info()}}}
+
+\item{topic}{What will be the topic?}
+
+\item{lab_meeting_day}{Day of the meeting}
+
+\item{lab_meeting_time}{Time of the meeting}
 }
 \description{
 Create announcement message for lab meeting

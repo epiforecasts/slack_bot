@@ -1,8 +1,7 @@
 #' Create announcement reminder for lab meeting
 #'
 #' @inheritParams create_announcement_msg
-#' @param zoom_link The link to the zoom room where the meeting is taking place
-#' @param room The room where the meeting is taking place
+#' @param advance How long in advance the message is sent
 #'
 #' @importFrom praise praise
 #' @importFrom glue glue

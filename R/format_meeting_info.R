@@ -6,6 +6,9 @@
 #' @param random Who is charge of talking about a random interesting thing?
 #' @param chair Who will chair this meeting?
 #' @param notes Who will take notes?
+#' @param topic What will be the topic?
+#' @param zoom_link What is the zoom link?
+#' @param room What is the room?
 #' @inheritParams get_user_id
 #'
 #' @examples
