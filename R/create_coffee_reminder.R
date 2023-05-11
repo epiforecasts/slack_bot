@@ -2,7 +2,7 @@
 #'
 #' @importFrom glue glue
 #'
-#' @inheritParams create_announcement_reminder
+#' @inheritParams format_meeting_info
 #'
 #' @examples
 #' create_coffee_reminder(zoom_link = "https://example.com")

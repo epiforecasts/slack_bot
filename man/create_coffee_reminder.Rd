@@ -6,6 +6,9 @@
 \usage{
 create_coffee_reminder(zoom_link = NULL)
 }
+\arguments{
+\item{zoom_link}{What is the zoom link?}
+}
 \description{
 Create a reminder for the weekly coffee
 }
