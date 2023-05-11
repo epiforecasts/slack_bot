@@ -78,7 +78,7 @@ format_meeting_info <- function(
   if (nchar(zoom_link) > 0 || nchar(room) > 0) {
     loc_str <- "Join us"
     if (nchar(zoom_link) > 0) {
-      loc_str <- paste(loc_str, "on {zoom_link}")
+      loc_str <- paste(loc_str, "on", zoom_link)
       if (nchar(room) > 0) {
         loc_str <- paste(loc_str, "or")
       }
