@@ -26,6 +26,7 @@ Imports:
   httr2,
   lubridate,
   praise,
-  purrr
+  purrr,
+  jsonvalidate
 Suggests:
   rmarkdown
