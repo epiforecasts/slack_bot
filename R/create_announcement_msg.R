@@ -14,28 +14,34 @@
 #' create_announcement_msg("Sebastian Funk", "someone")
 #'
 create_announcement_msg <- function(
-  ...
+  ...,
+  topic = "",
+  lab_meeting_day = "Thursday",
+  lab_meeting_time = "10:30 (UK time)"
 ) {
-  greeting <- "Hello ${adjective} Epiforecasts members"
-
-  meeting_info <- format_meeting_info(...)
+  meeting_info <- format_meeting_info(..., topic = topic)
 
   if (...length() == 0 || meeting_info == "") {
     return(NULL)
   }
 
-  lab_meeting_day <- "Thursday"
+  greeting <- "Hello ${adjective} Epiforecasts members"
 
-  announcement <- glue(
-    "For our meeting on {lab_meeting_day}:"
-  )
+  if (isTRUE(startsWith(topic, "[OFF]"))) {
+    reason <- sub("\\[OFF\\] *", "", topic)
+    announcement <- glue(
+      "No lab meeting this week ({reason})."
+    )
+    conclusion <- "Hopefully you'll have a good week anyway!"
+  } else {
+    announcement <- glue(
+      "For our meeting on {lab_meeting_day} at {lab_meeting_time}:"
+    )
 
-  announcement <- paste0(announcement, meeting_info)
+    announcement <- paste0(announcement, meeting_info)
 
-  conclusion <- "This is going to be ${adjective}!"
+    conclusion <- "This is going to be ${adjective}!"
+  }
 
   praise(glue("{greeting}!\n {announcement}\n {conclusion}"))
-
 }
-
-

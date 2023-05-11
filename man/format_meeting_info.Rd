@@ -5,10 +5,13 @@
 \title{Format meeting info as a simple bullet list}
 \usage{
 format_meeting_info(
-  assignee = NULL,
-  random = NULL,
-  chair = NULL,
-  notes = NULL,
+  assignee = "",
+  random = "",
+  chair = "",
+  notes = "",
+  topic = "",
+  zoom_link = "",
+  room = "",
   gsheet_id = Sys.getenv("GSHEET_ID")
 )
 }

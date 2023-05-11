@@ -27,6 +27,8 @@ get_meeting_info <- function(gsheet_id) {
            .data$Chair, .data$Notetaking, .data$Room) %>%
     unlist()
 
+  week_plan[is.na(week_plan)] <- ""
+
   return(week_plan)
 
 }

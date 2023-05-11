@@ -4,7 +4,12 @@
 \alias{create_announcement_msg}
 \title{Create announcement message for lab meeting}
 \usage{
-create_announcement_msg(...)
+create_announcement_msg(
+  ...,
+  topic = "",
+  lab_meeting_day = "Thursday",
+  lab_meeting_time = "10:30 (UK time)"
+)
 }
 \arguments{
 \item{...}{Arguments passed to \code{\link[=format_meeting_info]{format_meeting_info()}}}

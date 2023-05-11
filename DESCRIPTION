@@ -2,11 +2,16 @@ Package: EpiForecastsBot
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Hugo",
-           family = "Gruson",
-           role = c("aut", "cre", "cph"),
-           email = "hugo.gruson+R@normalesup.org",
-           comment = c(ORCID = "0000-0002-4094-1476"))
+    c(person(given = "Hugo",
+             family = "Gruson",
+             role = c("aut", "cph"),
+             email = "hugo.gruson+R@normalesup.org",
+             comment = c(ORCID = "0000-0002-4094-1476")),
+       person(given = "Sebastian",
+             family = "Funk",
+             role = c("aut", "cre", "cph"),
+             email = "sebastian.funk@lshtm.ac.uk",
+             comment = c(ORCID = "0000-0002-2842-3406")))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Config/testthat/edition: 3

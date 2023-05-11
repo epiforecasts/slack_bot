@@ -34,11 +34,14 @@ jobs:
             random = this_week_plan[["Random"]],
             chair = this_week_plan[["Chair"]],
             notes = this_week_plan[["Notetaking"]],
+            topic = this_week_plan[["Topic"]]
           )
-          req <- httr::POST(
-            url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
-            body = list(text = msg, type = "mrkdwn"),
-            encode = "json"
-          )
-          httr::stop_for_status(req)
+          if (!is.null(msg)) {
+            req <- httr::POST(
+              url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
+              body = list(text = msg, type = "mrkdwn"),
+              encode = "json"
+            )
+            httr::stop_for_status(req)
+          }
         shell: Rscript {0}
