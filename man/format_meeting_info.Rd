@@ -5,10 +5,13 @@
 \title{Format meeting info as a simple bullet list}
 \usage{
 format_meeting_info(
-  assignee = NULL,
-  random = NULL,
-  chair = NULL,
-  notes = NULL,
+  assignee = "",
+  random = "",
+  chair = "",
+  notes = "",
+  topic = "",
+  zoom_link = "",
+  room = "",
   gsheet_id = Sys.getenv("GSHEET_ID")
 )
 }
@@ -20,6 +23,12 @@ format_meeting_info(
 \item{chair}{Who will chair this meeting?}
 
 \item{notes}{Who will take notes?}
+
+\item{topic}{What will be the topic?}
+
+\item{zoom_link}{What is the zoom link?}
+
+\item{room}{What is the room?}
 
 \item{gsheet_id}{The ID of the google sheet}
 }

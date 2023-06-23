@@ -1,10 +1,13 @@
 #' Create announcement message for lab meeting
 #'
 #' @param ... Arguments passed to [format_meeting_info()]
-#'
+#' @param lab_meeting_day Day of the meeting
+#' @param lab_meeting_time  Time of the meeting
 #' @importFrom praise praise
 #' @importFrom glue glue
 #'
+#' @inheritParams format_meeting_info
+#
 #' @export
 #'
 #' @examples
@@ -14,28 +17,30 @@
 #' create_announcement_msg("Sebastian Funk", "someone")
 #'
 create_announcement_msg <- function(
-  ...
+  ...,
+  topic = "",
+  lab_meeting_day = "Thursday",
+  lab_meeting_time = "10:30 (UK time)"
 ) {
-  greeting <- "Hello ${adjective} Epiforecasts members"
-
   meeting_info <- format_meeting_info(...)
 
-  if (...length() == 0 || meeting_info == "") {
-    return(NULL)
+  greeting <- "Hello ${adjective} Epiforecasts members"
+
+  if (isTRUE(startsWith(topic, "[OFF]"))) {
+    reason <- sub("\\[OFF\\] *", "", topic)
+    announcement <- glue(
+      "No lab meeting this week ({reason})."
+    )
+    conclusion <- "Hopefully you'll have a good week anyway!"
+  } else {
+    announcement <- glue(
+      "For our meeting on {lab_meeting_day} at {lab_meeting_time}:"
+    )
+
+    announcement <- paste0(announcement, meeting_info)
+
+    conclusion <- "This is going to be ${adjective}!"
   }
 
-  lab_meeting_day <- "Thursday"
-
-  announcement <- glue(
-    "For our meeting on {lab_meeting_day}:"
-  )
-
-  announcement <- paste0(announcement, meeting_info)
-
-  conclusion <- "This is going to be ${adjective}!"
-
-  praise(glue("{greeting}! {question}?\n {announcement}\n {conclusion}"))
-
+  praise(glue("{greeting}!\n {announcement}\n {conclusion}"))
 }
-
-

@@ -6,6 +6,9 @@
 #' @param random Who is charge of talking about a random interesting thing?
 #' @param chair Who will chair this meeting?
 #' @param notes Who will take notes?
+#' @param topic What will be the topic?
+#' @param zoom_link What is the zoom link?
+#' @param room What is the room?
 #' @inheritParams get_user_id
 #'
 #' @examples
@@ -17,13 +20,14 @@
 #' @export
 #'
 format_meeting_info <- function(
-  assignee = NULL, random = NULL, chair = NULL, notes = NULL,
+  assignee = "", random = "", chair = "", notes = "", topic = "",
+  zoom_link = "", room = "",
   gsheet_id = Sys.getenv("GSHEET_ID")
 ) {
 
   announcement <- ""
 
-  if (!is.null(assignee) && !is.na(assignee)) {
+  if (nchar(assignee) > 0) {
     announcement <- tryCatch(
       glue(
         "{announcement}\n- presenting: <@{assignee_id}>",
@@ -33,7 +37,7 @@ format_meeting_info <- function(
       }
     )
   }
-  if (!is.null(random) && !is.na(random)) {
+  if (nchar(random) > 0) {
     announcement <- tryCatch(
       glue(
         "{announcement}\n- talking about something interesting: <@{random_id}>",
@@ -44,7 +48,7 @@ format_meeting_info <- function(
       }
     )
   }
-  if (!is.null(chair) && !is.na(chair)) {
+  if (nchar(chair) > 0) {
     announcement <- tryCatch(
       glue(
         "{announcement}\n- chairing: <@{chair_id}>",
@@ -55,18 +59,36 @@ format_meeting_info <- function(
       }
     )
   }
-  if (!is.null(notes) && !is.na(notes)) {
+  if (nchar(notes) > 0) {
     announcement <- tryCatch(
       glue(
-        "{announcement}\n- Note taking: <@{notes_id}>",
+        "{announcement}\n- note taking: <@{notes_id}>",
         notes_id = get_user_id(notes, gsheet_id)
       ),
       error = function(e) {
-        glue("{announcement}\n- Note taking: {notes}")
+        glue("{announcement}\n- note taking: {notes}")
       }
     )
   }
 
+  if (nchar(topic) > 0) {
+    announcement <- glue("{announcement}\n- topic: {topic}")
+  }
 
-  return(announcement)
+  if (nchar(zoom_link) > 0 || nchar(room) > 0) {
+    loc_str <- "Join us"
+    if (nchar(zoom_link) > 0) {
+      loc_str <- paste(loc_str, "on", zoom_link)
+      if (nchar(room) > 0) {
+        loc_str <- paste(loc_str, "or")
+      }
+    }
+    if (nchar(room) > 0) {
+      loc_str <- paste(loc_str, "in room", room)
+    }
+    loc_str <- paste0(loc_str, ".")
+    announcement <- glue("{announcement}\n{loc_str}")
+  }
+
+   return(announcement)
 }

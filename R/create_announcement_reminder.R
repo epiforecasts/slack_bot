@@ -1,8 +1,7 @@
 #' Create announcement reminder for lab meeting
 #'
 #' @inheritParams create_announcement_msg
-#' @param zoom_link The link to the zoom room where the meeting is taking place
-#' @param room The room where the meeting is taking place
+#' @param advance How long in advance the message is sent
 #'
 #' @importFrom praise praise
 #' @importFrom glue glue
@@ -19,35 +18,27 @@
 #'
 create_announcement_reminder <- function(
   ...,
-  zoom_link = NULL,
-  room = NULL
+  topic = "",
+  advance = "ca. 15 minutes"
 ) {
 
-  announcement <- glue(
-    "<!channel>, lab meeting is happening in 5 minutes!"
-  )
+  meeting_info <- format_meeting_info(..., topic = topic)
 
-  announcement <- paste0(announcement, format_meeting_info(...))
-
-  if (is.null(zoom_link) && is.null(room)) {
-    return(announcement)
+  if (...length() == 0 || meeting_info == "") {
+    return(NULL)
   }
 
-  loc_str <- "Join us"
-  if (!is.null(zoom_link)) {
-    loc_str <- paste(loc_str, "on {zoom_link}")
-    if (!is.null(room)) {
-      loc_str <- paste(loc_str, "or")
-    }
+  if (isTRUE(startsWith(topic, "[OFF]"))) {
+    reason <- sub("\\[OFF\\] *", "", topic)
+    announcement <- glue(
+      "Reminder: no lab meeting today ({reason})."
+    )
+    conclusion <- "See you next time!"
+  } else {
+    announcement <- glue("<!channel>, lab meeting is happening in {advance}.")
+    announcement <- paste0(announcement, meeting_info)
+    conclusion <- "See you there!"
   }
-  if (!is.null(room)) {
-    loc_str <- paste(loc_str, "in room", room)
-  }
-  loc_str <- paste0(loc_str, "!")
-  location <- glue(loc_str)
 
-  return(paste(announcement, location, sep = "\n"))
-
+  return(glue("{announcement}\n {conclusion}"))
 }
-
-

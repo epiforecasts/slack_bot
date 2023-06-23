@@ -7,7 +7,7 @@
 create_coffee_reminder(zoom_link = NULL)
 }
 \arguments{
-\item{zoom_link}{The link to the zoom room where the meeting is taking place}
+\item{zoom_link}{What is the zoom link?}
 }
 \description{
 Create a reminder for the weekly coffee
