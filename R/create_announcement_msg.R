@@ -20,7 +20,7 @@ create_announcement_msg <- function(
   ...,
   topic = "",
   lab_meeting_day = "Thursday",
-  lab_meeting_time = "10:30 (UK time)"
+  lab_meeting_time = "10:00 (UK time)"
 ) {
   meeting_info <- format_meeting_info(..., topic = topic)
 
