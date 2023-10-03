@@ -23,7 +23,7 @@ get_meeting_info <- function(gsheet_id) {
 
   week_plan <- meeting_planning %>%
     dplyr::filter(.data$week == this_week) %>%
-    select(.data$Speaker, .data$Topic, Random = .data$`Something interesting`,
+    select(.data$Speaker, .data$Topic,
            .data$Chair, .data$Notetaking, .data$Room) %>%
     unlist()
 
