@@ -5,6 +5,7 @@
 #' @param lab_meeting_time  Time of the meeting
 #' @importFrom praise praise
 #' @importFrom glue glue
+#' @importFrom lubridate now ymd_hm today
 #'
 #' @inheritParams format_meeting_info
 #
@@ -20,9 +21,17 @@ create_announcement_msg <- function(
   ...,
   topic = "",
   lab_meeting_day = "Thursday",
-  lab_meeting_time = "10:00 (UK time)"
+  time = ""
 ) {
   meeting_info <- format_meeting_info(..., topic = topic)
+
+  ## quit if not after 9 o'clock in Europe/London
+  if (
+    lubridate::now(tzone = "Europe/London") <
+    lubridate::ymd_hm(paste(lubridate::today(), "09:00"))
+  ) {
+    return(NULL)
+  }
 
   if (...length() == 0 || meeting_info == "") {
     return(NULL)
@@ -38,7 +47,7 @@ create_announcement_msg <- function(
     conclusion <- "Hopefully you'll have a good week anyway!"
   } else {
     announcement <- glue(
-      "For our meeting on {lab_meeting_day} at {lab_meeting_time}:"
+      "For our meeting on {lab_meeting_day} at {time}:"
     )
 
     announcement <- paste0(announcement, meeting_info)

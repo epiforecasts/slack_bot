@@ -8,7 +8,7 @@ create_announcement_msg(
   ...,
   topic = "",
   lab_meeting_day = "Thursday",
-  lab_meeting_time = "10:00 (UK time)"
+  time = ""
 )
 }
 \arguments{

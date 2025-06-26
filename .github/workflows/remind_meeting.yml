@@ -2,7 +2,7 @@ name: "Lab meeting reminder"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "10 9 * * 4"
+    - cron: "10,40 9,10,14,15 * * 4"
 
 jobs:
   remind-meeting:
@@ -40,7 +40,6 @@ jobs:
             room = this_week_plan[["Room"]],
             time = this_week_plan[["Time"]]
           )
-          msg <- NULL
           if (!is.null(msg)) {
             req <- httr::POST(
               url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),

@@ -2,7 +2,7 @@ name: "Lab meeting announcement"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 8 * * 1"
+    - cron: "0 8,9 * * 1"
 
 jobs:
   announce-meeting:
@@ -34,7 +34,8 @@ jobs:
             random = this_week_plan[["Random"]],
             chair = this_week_plan[["Chair"]],
             notes = this_week_plan[["Notetaking"]],
-            topic = this_week_plan[["Topic"]]
+            topic = this_week_plan[["Topic"]],
+            time = this_week_plan[["Time"]]
           )
           if (!is.null(msg)) {
             req <- httr::POST(
