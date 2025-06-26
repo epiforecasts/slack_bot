@@ -6,6 +6,7 @@
 #' @importFrom dplyr mutate %>% select .data
 #'
 #' @export
+#' @autoglobal
 #'
 #' @examples
 #' googlesheets4::gs4_deauth()

@@ -27,8 +27,7 @@ Imports:
   httr2,
   lubridate,
   praise,
-  purrr,
-  jsonvalidate
+  purrr
 Suggests:
     rmarkdown,
     roxyglobals

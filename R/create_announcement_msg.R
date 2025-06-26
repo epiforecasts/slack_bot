@@ -2,7 +2,7 @@
 #'
 #' @param ... Arguments passed to [format_meeting_info()]
 #' @param lab_meeting_day Day of the meeting
-#' @param time  Time of the meeting
+#' @param time  Time of the meeting, in "HH:MM" format
 #' @importFrom praise praise
 #' @importFrom glue glue
 #' @importFrom lubridate now ymd_hm today

@@ -18,7 +18,7 @@ create_announcement_msg(
 
 \item{lab_meeting_day}{Day of the meeting}
 
-\item{time}{Time of the meeting}
+\item{time}{Time of the meeting, in "HH:MM" format}
 }
 \description{
 Create announcement message for lab meeting

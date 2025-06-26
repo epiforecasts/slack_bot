@@ -7,6 +7,7 @@
 #' @importFrom dplyr filter %>% pull
 #'
 #' @export
+#' @autoglobal
 #'
 #' @examples
 #' googlesheets4::gs4_deauth()
