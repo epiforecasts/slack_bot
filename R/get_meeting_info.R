@@ -17,14 +17,16 @@
 get_meeting_info <- function(gsheet_id) {
 
   meeting_planning <- read_sheet(gsheet_id) %>%
-    mutate(week = format(.data$Date, "%Y-W%W"))
+    mutate(
+      week = format(Date, "%Y-W%W"),
+      Time = format(Time, "%H:%M")
+    )
 
   this_week <- format(lubridate::today(), "%Y-W%W")
 
   week_plan <- meeting_planning %>%
     dplyr::filter(.data$week == this_week) %>%
-    select(.data$Speaker, .data$Topic,
-           .data$Chair, .data$Notetaking, .data$Room) %>%
+    select(Speaker, Topic, Chair, Notetaking, Room, Time) %>%
     mutate(Random = NA_character_) %>%
     unlist()
 

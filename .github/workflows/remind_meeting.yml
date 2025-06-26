@@ -37,8 +37,10 @@ jobs:
             notes = this_week_plan[["Notetaking"]],
             topic = this_week_plan[["Topic"]],
             zoom_link = Sys.getenv("ZOOM_ROOM"),
-            room = this_week_plan[["Room"]]
+            room = this_week_plan[["Room"]],
+            time = this_week_plan[["Time"]]
           )
+          msg <- NULL
           if (!is.null(msg)) {
             req <- httr::POST(
               url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
