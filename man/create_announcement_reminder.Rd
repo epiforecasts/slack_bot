@@ -11,6 +11,8 @@ create_announcement_reminder(..., topic = "", time = "")
 
 \item{topic}{What will be the topic?}
 
+\item{time}{Time of the meeting}
+
 \item{advance}{How long in advance the message is sent}
 }
 \description{
