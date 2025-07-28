@@ -57,5 +57,4 @@ jobs:
             encode = "json"
           )
           httr::stop_for_status(req)
-        }
         shell: Rscript {0}
