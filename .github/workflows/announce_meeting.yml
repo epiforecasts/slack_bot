@@ -48,7 +48,6 @@ jobs:
         shell: Rscript {0}
 
       - name: Question of the week
-        env:
         run: |
           pkgload::load_all(".")
           msg <- get_prompt()
