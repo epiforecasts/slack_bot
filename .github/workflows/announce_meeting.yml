@@ -10,6 +10,7 @@ jobs:
     env:
       RSPM: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      SLACK_INCOMING_WEBHOOK_URL: ${{ secrets.EPIFORECASTS_WEBHOOK }}
     steps:
       - uses: actions/checkout@master
 
@@ -23,7 +24,6 @@ jobs:
 
       - name: Announce meeting
         env:
-          SLACK_INCOMING_WEBHOOK_URL: ${{ secrets.EPIFORECASTS_WEBHOOK }}
           GSHEET_ID: ${{ secrets.GSHEET_ID }}
         run: |
           pkgload::load_all(".")
@@ -45,4 +45,18 @@ jobs:
             )
             httr::stop_for_status(req)
           }
+        shell: Rscript {0}
+
+      - name: Question of the week
+        env:
+        run: |
+          pkgload::load_all(".")
+          msg <- get_prompt()
+          req <- httr::POST(
+            url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
+            body = list(text = msg, type = "mrkdwn"),
+            encode = "json"
+          )
+          httr::stop_for_status(req)
+        }
         shell: Rscript {0}
