@@ -20,6 +20,7 @@ jobs:
           extra-packages: |
             pkgload
             httr
+            curl@6.1.1
 
       - name: Remind meeting
         env:
