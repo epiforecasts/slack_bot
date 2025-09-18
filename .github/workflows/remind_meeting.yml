@@ -20,7 +20,13 @@ jobs:
           extra-packages: |
             pkgload
             httr
-            any::curl?source
+
+       - uses: r-lib/actions/setup-r-dependencies@v2
+         env:
+           RSPM: ""  # Disable RSPM for this step
+         with:
+           packages: |
+             any::curl?source
 
       - name: Remind meeting
         env:
