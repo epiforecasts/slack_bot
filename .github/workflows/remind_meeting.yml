@@ -13,6 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      # Fix SSL libraries
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libssl-dev libcurl4-openssl-dev
+
       - uses: r-lib/actions/setup-r@v2
 
       - uses: r-lib/actions/setup-r-dependencies@v2
@@ -20,7 +26,6 @@ jobs:
           extra-packages: |
             pkgload
             httr
-            curl@6.1.1
 
       - name: Remind meeting
         env:
