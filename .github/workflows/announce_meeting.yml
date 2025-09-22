@@ -51,6 +51,15 @@ jobs:
             time = this_week_plan[["Time"]]
           )
           if (!is.null(msg)) {
+            ## announcement
+            req <- httr::POST(
+              url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
+              body = list(text = msg, type = "mrkdwn"),
+              encode = "json"
+            )
+            httr::stop_for_status(req)
+            ## question of the week
+            msg <- get_prompt()
             req <- httr::POST(
               url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
               body = list(text = msg, type = "mrkdwn"),
@@ -58,16 +67,4 @@ jobs:
             )
             httr::stop_for_status(req)
           }
-        shell: Rscript {0}
-
-      - name: Question of the week
-        run: |
-          pkgload::load_all(".")
-          msg <- get_prompt()
-          req <- httr::POST(
-            url = Sys.getenv("SLACK_INCOMING_WEBHOOK_URL"),
-            body = list(text = msg, type = "mrkdwn"),
-            encode = "json"
-          )
-          httr::stop_for_status(req)
         shell: Rscript {0}
