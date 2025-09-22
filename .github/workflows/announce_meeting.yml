@@ -28,6 +28,13 @@ jobs:
             pkgload
             httr
 
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        env:
+          RSPM: ""  # Disable RSPM for this step
+        with:
+          packages: |
+            any::curl?source
+
       - name: Announce meeting
         env:
           GSHEET_ID: ${{ secrets.GSHEET_ID }}
