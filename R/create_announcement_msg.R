@@ -5,7 +5,6 @@
 #' @param time  Time of the meeting, in "HH:MM" format
 #' @importFrom praise praise
 #' @importFrom glue glue
-#' @importFrom lubridate now ymd_hm today
 #'
 #' @inheritParams format_meeting_info
 #
@@ -24,14 +23,6 @@ create_announcement_msg <- function(
   time = ""
 ) {
   meeting_info <- format_meeting_info(..., topic = topic)
-
-  ## quit if not after 9 o'clock in Europe/London
-  if (
-    lubridate::now(tzone = "Europe/London") <
-    lubridate::ymd_hm(paste(lubridate::today(), "09:00"))
-  ) {
-    return(NULL)
-  }
 
   if (...length() == 0 || meeting_info == "") {
     return(NULL)

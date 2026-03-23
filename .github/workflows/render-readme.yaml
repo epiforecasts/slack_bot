@@ -4,6 +4,7 @@ on:
       - README.Rmd
   schedule:
     - cron: '12 2 5 * *'
+      timezone: "Europe/London"
 
 name: Render README
 
