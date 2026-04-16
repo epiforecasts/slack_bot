@@ -5,7 +5,6 @@
 #' @importFrom praise praise
 #' @importFrom glue glue
 #' @importFrom lubridate now ymd_hm today
-#' @importFrom dplyr between
 #'
 #' @export
 #'
@@ -26,7 +25,6 @@ create_announcement_reminder <- function(...,
                                          topic = "",
                                          time = "") {
 
-  # Check if meeting time is within the next 30 minutes
   if (time == "") {
     return(NULL)
   }
@@ -35,7 +33,7 @@ create_announcement_reminder <- function(...,
   difference <- as.integer(difftime(
     meeting_time, now(tzone = "Europe/London"), units = "mins"
   ))
-  if (!between(difference, 0, 30)) {
+  if (difference < -60 || difference > 120) {
     return(NULL)
   }
 
