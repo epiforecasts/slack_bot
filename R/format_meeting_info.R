@@ -25,16 +25,25 @@ format_meeting_info <- function(
   gsheet_id = Sys.getenv("GSHEET_ID")
 ) {
 
+  ## one or more comma-separated names; tag each known one, fall back to
+  ## the plain name otherwise
+  tag_people <- function(names_str, gsheet_id) {
+    parts <- trimws(strsplit(names_str, ",")[[1]])
+    parts <- parts[nchar(parts) > 0]
+    vapply(parts, function(name) {
+      tryCatch(
+        paste0("<@", get_user_id(name, gsheet_id), ">"),
+        error = function(e) name
+      )
+    }, character(1))
+  }
+
   announcement <- ""
 
   if (nchar(assignee) > 0) {
-    announcement <- tryCatch(
-      glue(
-        "{announcement}\n- presenting: <@{assignee_id}>",
-        assignee_id = get_user_id(assignee, gsheet_id)),
-      error = function(e) {
-        glue("{announcement}\n- presenting: {assignee}")
-      }
+    tags <- tag_people(assignee, gsheet_id)
+    announcement <- glue(
+      "{announcement}\n- presenting: {paste(tags, collapse = ', ')}"
     )
   }
   if (nchar(random) > 0) {
