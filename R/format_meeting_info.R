@@ -25,16 +25,13 @@ format_meeting_info <- function(
   gsheet_id = Sys.getenv("GSHEET_ID")
 ) {
 
-  ## one or more comma-separated names; tag each known one, fall back to
-  ## the plain name otherwise
+  ## one or more comma-separated names; tag each, erroring loudly if any
+  ## are unknown so the announcement isn't sent with a misspelled name
   tag_people <- function(names_str, gsheet_id) {
     parts <- trimws(strsplit(names_str, ",")[[1]])
     parts <- parts[nchar(parts) > 0]
     vapply(parts, function(name) {
-      tryCatch(
-        paste0("<@", get_user_id(name, gsheet_id), ">"),
-        error = function(e) name
-      )
+      paste0("<@", get_user_id(name, gsheet_id), ">")
     }, character(1))
   }
 
