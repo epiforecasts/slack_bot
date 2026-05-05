@@ -44,10 +44,10 @@ format_meeting_info <- function(
   ## Topic line: combine topic and speakers as "TOPIC (@speakers)" or "TOPIC".
   has_assignee <- nchar(assignee) > 0
   has_topic <- nchar(topic) > 0
-  if (has_topic || has_assignee) {
-    topic_line <- if (has_topic) topic else ""
-    if (has_assignee) {
-      tags <- tag_people(assignee, gsheet_id)
+  topic_line <- if (has_topic) topic else ""
+  if (has_assignee) {
+    tags <- tag_people(assignee, gsheet_id)
+    if (length(tags) > 0) {
       tag_str <- paste(tags, collapse = ", ")
       topic_line <- if (nchar(topic_line) > 0) {
         paste0(topic_line, " (", tag_str, ")")
@@ -55,6 +55,8 @@ format_meeting_info <- function(
         tag_str
       }
     }
+  }
+  if (nchar(topic_line) > 0) {
     announcement <- glue("{announcement}\n- {topic_line}")
   }
 
