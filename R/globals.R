@@ -6,7 +6,6 @@ utils::globalVariables(c(
   "Speaker", # <get_meeting_info>
   "Topic", # <get_meeting_info>
   "Chair", # <get_meeting_info>
-  "Notetaking", # <get_meeting_info>
   "Room", # <get_meeting_info>
   "Username", # <get_user_id>
   "User ID", # <get_user_id>

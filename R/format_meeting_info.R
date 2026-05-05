@@ -2,25 +2,24 @@
 #'
 #' @importFrom glue glue
 #'
-#' @param assignee Who is presenting this week?
-#' @param random Who is charge of talking about a random interesting thing?
+#' @param assignee Who is presenting this week? (one or more comma-separated
+#'   full names; "Everyone" maps to a channel-wide ping)
+#' @param random Who is in charge of talking about a random interesting thing?
 #' @param chair Who will chair this meeting?
-#' @param notes Who will take notes?
-#' @param topic What will be the topic?
+#' @param topic Topic / kind of meeting (e.g. "Project updates", "Journal Club")
 #' @param zoom_link What is the zoom link?
 #' @param room What is the room?
 #' @inheritParams get_user_id
 #'
 #' @examples
-#' format_meeting_info("Sebastian Funk")
-#' format_meeting_info("Seb")
-#' format_meeting_info("Sebastian Funk", "someone")
-#' format_meeting_info(random = "Sebastian Funk")
+#' format_meeting_info("Sebastian Funk", topic = "Project updates")
+#' format_meeting_info("Sebastian Funk, Liza Hadley", topic = "Project updates")
+#' format_meeting_info(topic = "Coffee walk")
 #'
 #' @export
 #'
 format_meeting_info <- function(
-  assignee = "", random = "", chair = "", notes = "", topic = "",
+  assignee = "", random = "", chair = "", topic = "",
   zoom_link = "", room = "",
   gsheet_id = Sys.getenv("GSHEET_ID")
 ) {
@@ -42,48 +41,35 @@ format_meeting_info <- function(
 
   announcement <- ""
 
-  if (nchar(assignee) > 0) {
-    tags <- tag_people(assignee, gsheet_id)
-    announcement <- glue(
-      "{announcement}\n- presenting: {paste(tags, collapse = ', ')}"
-    )
-  }
-  if (nchar(random) > 0) {
-    announcement <- tryCatch(
-      glue(
-        "{announcement}\n- talking about something interesting: <@{random_id}>",
-        random_id = get_user_id(random, gsheet_id)
-      ),
-      error = function(e) {
-        glue("{announcement}\n- talking about something interesting: {random}")
+  ## Topic line: combine topic and speakers as "TOPIC (@speakers)" or "TOPIC".
+  has_assignee <- nchar(assignee) > 0
+  has_topic <- nchar(topic) > 0
+  if (has_topic || has_assignee) {
+    topic_line <- if (has_topic) topic else ""
+    if (has_assignee) {
+      tags <- tag_people(assignee, gsheet_id)
+      tag_str <- paste(tags, collapse = ", ")
+      topic_line <- if (nchar(topic_line) > 0) {
+        paste0(topic_line, " (", tag_str, ")")
+      } else {
+        tag_str
       }
+    }
+    announcement <- glue("{announcement}\n- {topic_line}")
+  }
+
+  if (nchar(random) > 0) {
+    random_tag <- tag_people(random, gsheet_id)
+    announcement <- glue(
+      "{announcement}\n- talking about something interesting: ",
+      "{paste(random_tag, collapse = ', ')}"
     )
   }
   if (nchar(chair) > 0) {
-    announcement <- tryCatch(
-      glue(
-        "{announcement}\n- chairing: <@{chair_id}>",
-        chair_id = get_user_id(chair, gsheet_id)
-      ),
-      error = function(e) {
-        glue("{announcement}\n- chairing: {chair}")
-      }
+    chair_tag <- tag_people(chair, gsheet_id)
+    announcement <- glue(
+      "{announcement}\n- chairing: {paste(chair_tag, collapse = ', ')}"
     )
-  }
-  if (nchar(notes) > 0) {
-    announcement <- tryCatch(
-      glue(
-        "{announcement}\n- note taking: <@{notes_id}>",
-        notes_id = get_user_id(notes, gsheet_id)
-      ),
-      error = function(e) {
-        glue("{announcement}\n- note taking: {notes}")
-      }
-    )
-  }
-
-  if (nchar(topic) > 0) {
-    announcement <- glue("{announcement}\n- topic: {topic}")
   }
 
   if (nchar(zoom_link) > 0 || nchar(room) > 0) {
@@ -101,5 +87,5 @@ format_meeting_info <- function(
     announcement <- glue("{announcement}\n{loc_str}")
   }
 
-   return(announcement)
+  return(announcement)
 }

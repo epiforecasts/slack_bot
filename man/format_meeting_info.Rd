@@ -8,7 +8,6 @@ format_meeting_info(
   assignee = "",
   random = "",
   chair = "",
-  notes = "",
   topic = "",
   zoom_link = "",
   room = "",
@@ -16,15 +15,14 @@ format_meeting_info(
 )
 }
 \arguments{
-\item{assignee}{Who is presenting this week?}
+\item{assignee}{Who is presenting this week? (one or more comma-separated
+full names; "Everyone" maps to a channel-wide ping)}
 
-\item{random}{Who is charge of talking about a random interesting thing?}
+\item{random}{Who is in charge of talking about a random interesting thing?}
 
 \item{chair}{Who will chair this meeting?}
 
-\item{notes}{Who will take notes?}
-
-\item{topic}{What will be the topic?}
+\item{topic}{Topic / kind of meeting (e.g. "Project updates", "Journal Club")}
 
 \item{zoom_link}{What is the zoom link?}
 
@@ -36,9 +34,8 @@ format_meeting_info(
 Format meeting info as a simple bullet list
 }
 \examples{
-format_meeting_info("Sebastian Funk")
-format_meeting_info("Seb")
-format_meeting_info("Sebastian Funk", "someone")
-format_meeting_info(random = "Sebastian Funk")
+format_meeting_info("Sebastian Funk", topic = "Project updates")
+format_meeting_info("Sebastian Funk, Liza Hadley", topic = "Project updates")
+format_meeting_info(topic = "Coffee walk")
 
 }

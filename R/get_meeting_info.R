@@ -25,13 +25,31 @@ get_meeting_info <- function(gsheet_id) {
 
   this_week <- format(lubridate::today(), "%Y-W%W")
 
-  week_plan <- meeting_planning %>%
-    dplyr::filter(.data$week == this_week) %>%
-    select(Speaker, Topic, Chair, Notetaking, Room, Time) %>%
-    mutate(Random = NA_character_) %>%
-    unlist()
+  week_row <- meeting_planning %>%
+    dplyr::filter(.data$week == this_week)
 
-  week_plan[is.na(week_plan)] <- ""
+  ## Combine up to three speaker columns into a single comma-separated string
+  ## so format_meeting_info can split and tag each.
+  pick <- function(col) {
+    if (col %in% names(week_row)) as.character(week_row[[col]]) else NA_character_
+  }
+  speakers <- c(pick("Speaker"), pick("Speaker2"), pick("Speaker3"))
+  speakers <- speakers[!is.na(speakers) & nchar(speakers) > 0]
+  speaker <- paste(speakers, collapse = ", ")
+
+  field <- function(col) {
+    val <- pick(col)
+    if (length(val) == 0 || is.na(val)) "" else val
+  }
+
+  week_plan <- c(
+    Speaker = speaker,
+    Topic   = field("Topic"),
+    Chair   = field("Chair"),
+    Room    = field("Room"),
+    Time    = field("Time"),
+    Random  = ""
+  )
 
   return(week_plan)
 
