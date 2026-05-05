@@ -26,11 +26,13 @@ format_meeting_info <- function(
 ) {
 
   ## one or more comma-separated names; tag each, erroring loudly if any
-  ## are unknown so the announcement isn't sent with a misspelled name
+  ## are unknown so the announcement isn't sent with a misspelled name.
+  ## "Everyone" is a special token that maps to a channel-wide ping.
   tag_people <- function(names_str, gsheet_id) {
     parts <- trimws(strsplit(names_str, ",")[[1]])
     parts <- parts[nchar(parts) > 0]
     vapply(parts, function(name) {
+      if (tolower(name) == "everyone") return("<!channel>")
       paste0("<@", get_user_id(name, gsheet_id), ">")
     }, character(1))
   }
