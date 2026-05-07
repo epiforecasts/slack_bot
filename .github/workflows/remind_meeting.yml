@@ -36,7 +36,6 @@ jobs:
             assignee = this_week_plan[["Speaker"]],
             random = this_week_plan[["Random"]],
             chair = this_week_plan[["Chair"]],
-            notes = this_week_plan[["Notetaking"]],
             topic = this_week_plan[["Topic"]],
             zoom_link = Sys.getenv("ZOOM_ROOM"),
             room = this_week_plan[["Room"]],
