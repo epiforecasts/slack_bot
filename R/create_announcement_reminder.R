@@ -50,9 +50,14 @@ create_announcement_reminder <- function(...,
     )
     conclusion <- "See you next time!"
   } else {
-    announcement <- glue(
-      "<!channel>, lab meeting is happening in ca. {difference} minutes."
-    )
+    ## a delayed scheduled run can fire after the meeting has started
+    if (difference > 0) {
+      announcement <- glue(
+        "<!channel>, lab meeting is happening in ca. {difference} minutes."
+      )
+    } else {
+      announcement <- glue("<!channel>, lab meeting has started.")
+    }
     announcement <- paste0(announcement, meeting_info)
     conclusion <- "See you there!"
   }
